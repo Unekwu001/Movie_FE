@@ -82,3 +82,8 @@ input {
     text-align: center;
     margin-top: 20px;
 }
+.more-link {
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline; /* Optional: Add underline for a more obvious link style */
+}

@@ -79,7 +79,7 @@ function App() {
                     <div key={movie.imdbID} onClick={() => setSelectedMovie(movie)} className="movie-card">
                         <img src={movie.poster} alt={movie.title} />
                         <h2>{movie.title}</h2>
-                        <p>{movie.plot}<a>Click for more....</a></p>
+                        <p>{movie.plot}<button className="more-link"> Click for more....</button></p>
                     </div>
                 ))}
             </div>
