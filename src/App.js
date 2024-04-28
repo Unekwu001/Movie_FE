@@ -9,7 +9,7 @@ function App() {
     const [searchHistory, setSearchHistory] = useState([]);
     const [error, setError] = useState(null);
 
-    const apiBaseUrl = 'https://moviebackend.azurewebsites.net/swagger/index.html';
+    const apiBaseUrl = 'https://moviebackend.azurewebsites.net';
 
     const searchMovie = async () => {
         try {
