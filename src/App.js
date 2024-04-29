@@ -12,7 +12,7 @@ function App() {
     const [error, setError] = useState(null);
     const [showMore, setShowMore] = useState(false); // State to control showing additional info
 
-    const apiBaseUrl = 'https://moviebackend.azurewebsites.net/';
+    const apiBaseUrl = 'https://moviebackend.azurewebsites.net';
 
     const searchMovie = async () => {
         try {
