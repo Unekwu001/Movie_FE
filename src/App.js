@@ -1,3 +1,5 @@
+// App.js
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
@@ -8,8 +10,9 @@ function App() {
     const [selectedMovie, setSelectedMovie] = useState(null);
     const [searchHistory, setSearchHistory] = useState([]);
     const [error, setError] = useState(null);
+    const [showMore, setShowMore] = useState(false); // State to control showing additional info
 
-    const apiBaseUrl = 'https://moviebackend.azurewebsites.net';
+    const apiBaseUrl = 'https://moviebackend.azurewebsites.net/';
 
     const searchMovie = async () => {
         try {
@@ -17,9 +20,9 @@ function App() {
             const { data } = response;
 
             if (data.succeeded) {
-                setSearchResults([data.data] || []); // Wrap the single movie in an array
+                setSearchResults([data.data] || []);
+                setSelectedMovie(null);
                 setError(null);
-                console.log(response);
             } else {
                 setError(data.message || 'Error fetching search results. Please try again.');
             }
@@ -57,6 +60,10 @@ function App() {
         }
     };
 
+    const toggleShowMore = () => {
+        setShowMore(!showMore); // Toggle showMore state
+    };
+
     return (
         <div className="container">
             <div className="header">
@@ -76,32 +83,38 @@ function App() {
 
             <div className="movie-list">
                 {searchResults.map((movie) => (
-                    <div key={movie.imdbID} onClick={() => setSelectedMovie(movie)} className="movie-card">
+                    <div key={movie.imdbID} className="movie-card">
                         <img src={movie.poster} alt={movie.title} />
                         <h2>{movie.title}</h2>
-                        <p>{movie.plot}<button className="more-link"> Click for more....</button></p>
+                        <p>{movie.plot}</p>
+                        {!showMore && (
+                            <button className="more-link" onClick={toggleShowMore}>
+                                Click to read more...
+                            </button>
+                        )}
+                        {showMore && (
+                            <div>
+                                <p>IMDB Score: {movie.imdbRating}</p>
+                                <p>Awards: {movie.awards}</p>
+                                <p>Released: {movie.released}</p>
+                                <p>Runtime: {movie.runtime}</p>
+                                <p>Genre: {movie.genre}</p>
+                                <p>Director: {movie.director}</p>
+                                <p>Writer: {movie.writer}</p>
+                                <p>Actors: {movie.actors}</p>
+                                <button className="more-link" onClick={toggleShowMore}>
+                                    Click to close
+                                </button>
+                            </div>
+                        )}
                     </div>
                 ))}
             </div>
 
-            {selectedMovie && (
-                <div className="selected-movie">
-                    <h2>{selectedMovie.title}</h2>
-                    <img src={selectedMovie.poster} alt={selectedMovie.title} />
-                    <p>{selectedMovie.plot}</p>
-                    <p>IMDB Score: {selectedMovie.imdbRating}</p>
-                    <p>Awards: {selectedMovie.awards}</p>
-                    <p>Released: {selectedMovie.released}</p>
-                    <p>Runtime: {selectedMovie.runtime}</p>
-                    <p>Genre: {selectedMovie.genre}</p>
-                    <p>Director: {selectedMovie.director}</p>
-                    <p>Writer: {selectedMovie.writer}</p>
-                    <p>Actors: {selectedMovie.actors}</p>
-                </div>
-            )}
-
             <div className="search-history">
-                <button onClick={getSearchHistory} className="search-button">Get Search History</button>
+                <button onClick={getSearchHistory} className="search-button">
+                    Get Search History
+                </button>
                 <ul>
                     {searchHistory.map((history, index) => (
                         <li key={index}>{history}</li>
@@ -110,8 +123,6 @@ function App() {
             </div>
 
             {error && <p className="error-message">{error}</p>}
-
-
         </div>
     );
 }

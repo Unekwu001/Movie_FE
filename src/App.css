@@ -1,7 +1,13 @@
 /* App.css */
 
+body {
+    background-color: #000; /* Set background color to black */
+    color: #fff; /* Set text color to white */
+    font-family: Arial, sans-serif; /* Use Arial font */
+}
+
 .container {
-    max-width: 100%;
+    max-width: 1200px;
     margin: auto;
     padding: 20px;
 }
@@ -18,12 +24,14 @@
     margin-bottom: 20px;
 }
 
-input {
+input[type="text"] {
     padding: 10px;
     font-size: 16px;
     flex: 1;
     border: 1px solid #ccc;
     border-radius: 5px 0 0 5px;
+    background-color: #333; /* Dark background color for input */
+    color: #fff; /* White text color for input */
 }
 
 .search-button {
@@ -49,15 +57,22 @@ input {
 
 .movie-card {
     border: 1px solid #ccc;
-    padding: 10px;
+    padding: 20px;
     margin: 10px;
     cursor: pointer;
-    width: 200px;
+    width: 300px;
+    background-color: #222; /* Dark background color for movie card */
+    transition: transform 0.3s ease; /* Add transition effect */
 }
+
+    .movie-card:hover {
+        transform: scale(1.05); /* Scale up movie card on hover */
+    }
 
     .movie-card img {
         width: 100%;
         height: auto;
+        object-fit: cover;
     }
 
 .selected-movie {
@@ -66,10 +81,10 @@ input {
 }
 
     .selected-movie img {
-        max-width: 70%; /* Updated to cover 70% of the screen width */
+        max-width: 70%;
         height: auto;
-        margin: 0 auto; /* Center the image */
-        display: block; /* Remove any default inline styles */
+        margin: 0 auto;
+        display: block;
     }
 
 .search-history {
@@ -82,8 +97,15 @@ input {
     text-align: center;
     margin-top: 20px;
 }
+
 .more-link {
     color: blue;
     cursor: pointer;
-    text-decoration: underline; /* Optional: Add underline for a more obvious link style */
+    text-decoration: underline;
+}
+
+.more-link {
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
 }
